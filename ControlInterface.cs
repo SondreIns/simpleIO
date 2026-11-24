@@ -1,5 +1,6 @@
 using simpleIO.FileHandler;
 using ConsoleHelper;
+using simpleIO.Data;
 
 namespace simpleIO;
 
@@ -33,6 +34,7 @@ public class ControlInterface
                     break;
                 case 2:
                     Console.WriteLine("Open existing file selected");
+                    _reader.LoadAllFilenames();
                     keepRunning = true;
                     break;
                 case 3:
@@ -51,5 +53,26 @@ public class ControlInterface
         }
 
         return keepRunning;
+    }
+
+
+    private void WriteFile(string fileTitle)
+    {
+        
+    }
+
+    private void WriteFile()
+    {
+        ConsoleWriter.Write("Enter title: ", ConsoleColor.Cyan);
+        string? input = Console.ReadLine();
+        Console.WriteLine();
+        if(string.IsNullOrWhiteSpace(input))
+        {
+            ConsoleWriter.WriteLine("Error - file name must not be empty", ConsoleColor.Red);
+            return;
+        }
+
+        string fileName = input + ".txt";
+        ProgramFile file = new ProgramFile(input, fileName, []);
     }
 }

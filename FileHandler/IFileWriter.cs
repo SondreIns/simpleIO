@@ -1,6 +1,8 @@
+using simpleIO.Data;
+
 namespace simpleIO.FileHandler;
 
 public interface IFileWriter
 {
-    void Write(string fileName);
+    void Write(ProgramFile file);
 }
