@@ -21,4 +21,13 @@ public class FileReader : IFileReader
             foreach (string item in allFiles) Console.WriteLine(item);
         }
     }
+
+    public bool CheckIfFileExists(string fileName)
+    {
+        foreach(string item in Directory.GetFiles(FileConstants.DIRECTORY_PATH))
+        {
+            if(item.ToUpper() == fileName.ToUpper()) return true;
+        }
+        return false;
+    }
 }

@@ -30,6 +30,7 @@ public class ControlInterface
             {
                 case 1:
                     Console.WriteLine("New file selected");
+                    WriteFile();
                     keepRunning = true;
                     break;
                 case 2:
@@ -73,6 +74,12 @@ public class ControlInterface
         }
 
         string fileName = input + ".txt";
-        ProgramFile file = new ProgramFile(input, fileName, []);
-    }
+        if(_reader.CheckIfFileExists(fileName))
+        {
+            ConsoleWriter.WriteLine("Error - file with that name already exists", ConsoleColor.Red);
+            return;
+        }
+        ProgramFile file = new ProgramFile(input, fileName, ["test", "boiga boiga"]);
+        _writer.Write(file);
+    }   
 }
