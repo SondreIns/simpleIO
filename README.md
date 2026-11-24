@@ -1,0 +1,1 @@
+Enkel fillesing/skriving for øving.
