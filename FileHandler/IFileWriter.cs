@@ -2,5 +2,5 @@ namespace simpleIO.FileHandler;
 
 public interface IFileWriter
 {
-    void Write();
+    void Write(string fileName);
 }

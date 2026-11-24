@@ -2,5 +2,5 @@ namespace simpleIO.FileHandler;
 
 public interface IFileReader
 {
-    void Read();
+    void Read(string fileName);
 }
