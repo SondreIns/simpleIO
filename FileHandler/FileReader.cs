@@ -55,5 +55,6 @@ public class FileReader : IFileReader
             ProgramFile file = new ProgramFile(fileData[0], fileData[0] + ".txt", contents);
             _files.Add(file);
         }
+        _loaded = true;
     }
 }
