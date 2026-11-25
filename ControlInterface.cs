@@ -79,6 +79,34 @@ public class ControlInterface
             ConsoleWriter.WriteLine("Error - file with that name already exists", ConsoleColor.Red);
             return;
         }
+
+        bool isFinished = false;
+        List<string> content = new();
+        while(!isFinished)
+        {
+            ConsoleWriter.WriteLine("What do you want to do?", ConsoleColor.Green);
+            Console.WriteLine("1. New item");
+            Console.WriteLine("2. Save file");
+            string? choice = Console.ReadLine();
+            if(int.TryParse(choice, out int choiceInt))
+            {
+                if(choiceInt == 1)
+                {
+                    ConsoleWriter.WriteLine("Input item:", ConsoleColor.Cyan);
+                    // todo - add input
+                }
+                else if (choiceInt == 2)
+                {
+                    isFinished = true;
+                }
+                else
+                {
+                    ConsoleWriter.WriteLine("Error - invalid choice", ConsoleColor.Red);
+                }
+            }
+            else ConsoleWriter.WriteLine("Error - invalid input", ConsoleColor.Red);
+            
+        }
         ProgramFile file = new ProgramFile(input, fileName, ["test", "boiga boiga"]);
         _writer.Write(file);
     }   
