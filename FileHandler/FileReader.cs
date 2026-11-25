@@ -47,6 +47,8 @@ public class FileReader : IFileReader
         CreateFiles();
     }
 
+    public ProgramFile GetFile(int index) => _files[index]; 
+
     private void CreateFiles()
     {
         string path = FileConstants.DIRECTORY_PATH;
@@ -54,7 +56,7 @@ public class FileReader : IFileReader
         foreach(string item in allFiles)
         {
             string[] fileData = File.ReadAllLines(item);
-            string[] contents = new string[fileData.Length - 1];
+            string[] contents = new string[fileData.Length];
             for(int i = 1; i < contents.Length; i++)
             {
                 contents[i] = fileData[i];

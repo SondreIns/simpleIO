@@ -8,15 +8,18 @@ public class ControlInterface
 {
     private IFileReader _reader;
     private IFileWriter _writer;
+    private ProgramFile _currentFile;
 
     public ControlInterface(IFileReader reader, IFileWriter writer)
     {
         _reader = reader;
         _writer = writer;
+        _currentFile = new ProgramFile("empty", "empty", []);
     }
 
     public bool Run()
     {
+        Console.Clear();
         bool keepRunning = true;
         ConsoleWriter.WriteLine("Select an option:", ConsoleColor.Green);
         Console.WriteLine("1. New file");
@@ -24,6 +27,7 @@ public class ControlInterface
         Console.WriteLine("3. Quit");
 
         string? result = Console.ReadLine();
+        Console.Clear();
         if(int.TryParse(result, out int choice))
         {
             switch(choice)
@@ -34,9 +38,10 @@ public class ControlInterface
                     keepRunning = true;
                     break;
                 case 2:
-                    Console.WriteLine("Open existing file selected");
                     _reader.ReloadFiles();
-                    GetReadInput(_reader.LoadAllFilenames());
+                    ConsoleWriter.WriteLine("Select file to open", ConsoleColor.Cyan);
+                    if(GetReadInput(_reader.LoadAllFilenames())) ListFileContents();
+                    else ConsoleWriter.WriteLine("Error - invalid input", ConsoleColor.Red);
                     keepRunning = true;
                     break;
                 case 3:
@@ -57,9 +62,28 @@ public class ControlInterface
         return keepRunning;
     }
 
-    private void GetReadInput(int numFiles)
+    private void ListFileContents()
     {
-        Console.WriteLine("get file input");
+        ConsoleWriter.WriteLine($"{_currentFile.Title} - from {_currentFile.FileName}:", ConsoleColor.Green);
+        foreach(string item in _currentFile.Items) Console.WriteLine(item);
+        ConsoleWriter.WriteLine("---------------------------------", ConsoleColor.Yellow);
+        Console.ReadKey();
+    }
+
+    private bool GetReadInput(int numFiles)
+    {
+        string? input = Console.ReadLine();
+        Console.Clear();
+        if(!string.IsNullOrWhiteSpace(input) && int.TryParse(input, out int inputInt))
+        {
+            int choice = inputInt - 1;
+            if(choice < 0 || choice >= numFiles) return false;
+
+            _currentFile = _reader.GetFile(choice);
+            return true;
+        }
+        return false;
+
     }
 
     private void WriteFile(string fileTitle)
@@ -90,6 +114,7 @@ public class ControlInterface
         List<string> content = new();
         while(!isFinished)
         {
+            Console.WriteLine("File open: " + input);
             ConsoleWriter.WriteLine("What do you want to do?", ConsoleColor.Green);
             Console.WriteLine("1. New item");
             Console.WriteLine("2. Save file");
@@ -101,6 +126,9 @@ public class ControlInterface
                     ConsoleWriter.WriteLine("Input item:", ConsoleColor.Cyan);
                     string? itemToAdd = Console.ReadLine();
                     if(!string.IsNullOrWhiteSpace(itemToAdd)) content.Add(itemToAdd);
+                    ConsoleWriter.WriteLine("Item added!", ConsoleColor.Yellow);
+                    Console.ReadKey();
+                    Console.Clear();
                 }
                 else if (choiceInt == 2)
                 {
@@ -116,5 +144,7 @@ public class ControlInterface
         }
         ProgramFile file = new ProgramFile(input, fileName, content.ToArray());
         _writer.Write(file);
+        ConsoleWriter.WriteLine("File saved", ConsoleColor.Yellow);
+        Console.ReadKey();
     }   
 }

@@ -1,3 +1,5 @@
+using simpleIO.Data;
+
 namespace simpleIO.FileHandler;
 
 public interface IFileReader
@@ -6,4 +8,5 @@ public interface IFileReader
     int LoadAllFilenames();
     bool CheckIfFileExists(string fileName);
     void ReloadFiles();
+    ProgramFile GetFile(int index);
 }
