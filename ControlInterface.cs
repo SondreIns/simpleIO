@@ -80,6 +80,7 @@ public class ControlInterface
             return;
         }
 
+        // REFACTOR THIS vvvvvvvvvvvvvv
         bool isFinished = false;
         List<string> content = new();
         while(!isFinished)
@@ -93,7 +94,8 @@ public class ControlInterface
                 if(choiceInt == 1)
                 {
                     ConsoleWriter.WriteLine("Input item:", ConsoleColor.Cyan);
-                    // todo - add input
+                    string? itemToAdd = Console.ReadLine();
+                    if(!string.IsNullOrWhiteSpace(itemToAdd)) content.Add(itemToAdd);
                 }
                 else if (choiceInt == 2)
                 {
@@ -107,7 +109,7 @@ public class ControlInterface
             else ConsoleWriter.WriteLine("Error - invalid input", ConsoleColor.Red);
             
         }
-        ProgramFile file = new ProgramFile(input, fileName, ["test", "boiga boiga"]);
+        ProgramFile file = new ProgramFile(input, fileName, content.ToArray());
         _writer.Write(file);
     }   
 }

@@ -9,8 +9,5 @@ class Program
         ControlInterface debug = new ControlInterface(new FileReader(), new FileWriter());
         bool run = true;
         while(run) run = debug.Run();
-
-        Console.WriteLine("Goodbye, World!");
-        Console.ReadKey();
     }
 }
