@@ -35,7 +35,8 @@ public class ControlInterface
                     break;
                 case 2:
                     Console.WriteLine("Open existing file selected");
-                    _reader.LoadAllFilenames();
+                    _reader.ReloadFiles();
+                    GetReadInput(_reader.LoadAllFilenames());
                     keepRunning = true;
                     break;
                 case 3:
@@ -56,6 +57,10 @@ public class ControlInterface
         return keepRunning;
     }
 
+    private void GetReadInput(int numFiles)
+    {
+        Console.WriteLine("get file input");
+    }
 
     private void WriteFile(string fileTitle)
     {

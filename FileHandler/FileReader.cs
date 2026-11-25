@@ -12,7 +12,7 @@ public class FileReader : IFileReader
         throw new NotImplementedException();
     }
 
-    public void LoadAllFilenames()
+    public int LoadAllFilenames()
     {
         string path = FileConstants.DIRECTORY_PATH;
 
@@ -29,6 +29,7 @@ public class FileReader : IFileReader
             }
 
         }
+        return _files.Count;
     }
 
     public bool CheckIfFileExists(string fileName)
@@ -38,6 +39,12 @@ public class FileReader : IFileReader
             if(item.ToUpper() == fileName.ToUpper()) return true;
         }
         return false;
+    }
+
+    public void ReloadFiles()
+    {
+        _files.Clear();
+        CreateFiles();
     }
 
     private void CreateFiles()

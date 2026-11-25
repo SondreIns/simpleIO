@@ -3,6 +3,7 @@ namespace simpleIO.FileHandler;
 public interface IFileReader
 {
     void Read(string fileName);
-    void LoadAllFilenames();
+    int LoadAllFilenames();
     bool CheckIfFileExists(string fileName);
+    void ReloadFiles();
 }
